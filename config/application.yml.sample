@@ -1,0 +1,7 @@
+development:
+  SECRET_KEY_BASE: "run rake secret to generate a new secret"
+  FB_APP_ID: "get this value from Facebook Developers"
+  FB_APP_SECRET: "get this value from Facebook Developers"
+
+test:
+  SECRET_KEY_BASE: "run rake secret to generate a new secret"
