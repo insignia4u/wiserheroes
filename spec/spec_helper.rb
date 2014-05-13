@@ -16,6 +16,7 @@ RSpec.configure do |config|
   config.include Capybara::RSpecMatchers, type: :feature
   config.include UsefulHelpers
   config.include OauthHelpers
+  config.include Mongoid::Matchers, type: :model
 
   config.infer_base_class_for_anonymous_controllers = false
   config.order = "random"

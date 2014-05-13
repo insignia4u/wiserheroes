@@ -5,9 +5,9 @@ module OauthHelpers
     OmniAuth::AuthHash.new(
       {
         provider: user[:provider],
-        uid: user[:uid],
+        uid: user[:uid].to_s,
         info: {
-          name: user[:full_name],
+          name: user[:name],
           image: user[:profile_image],
           email: user[:email]
         },
