@@ -23,7 +23,7 @@ describe User do
         expect(user.image).to eq(auth_data.info.image)
         expect(user.oauth_token).to eq(auth_data.credentials.token)
         expect(user.oauth_expires_at).to eq(Time.at(auth_data.credentials.expires_at))
-        expect(User.find_by(uid: auth_data.uid)).not_to be_nil
+        expect(user).not_to be_new_record
       end
     end
 

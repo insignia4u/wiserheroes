@@ -41,7 +41,6 @@ group :development, :test do
   gem 'rb-fsevent' if `uname` =~ /Darwin/
   gem 'factory_girl_rails'
   gem 'quiet_assets'
-  gem 'mongoid-rspec'
 end
 
 group :test do
@@ -51,7 +50,7 @@ group :test do
   gem 'simplecov',            require: false
   gem 'launchy'
   gem 'ffaker'
-  gem 'shoulda-matchers'
+  gem 'mongoid-rspec'
 end
 
 # Misc
