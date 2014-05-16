@@ -3,7 +3,6 @@
     p.text-primary.navbar-text
       | Signed in as 
       b #{current_user.name} 
-    / image_tag(iterator.image.url('#{current_user.image}'), :class => "img_preview")
   li
     a href='/signout' Logout
   li

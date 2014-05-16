@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :user do
-    id "54321"
     name "Eddard Stark"
     provider "facebook"
     uid "12324"

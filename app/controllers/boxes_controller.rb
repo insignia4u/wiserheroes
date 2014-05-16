@@ -7,6 +7,7 @@ class BoxesController < ApplicationController
 
   def show
     @user = User.find(@box.user_id)
+    @links = Link.where(box_id: @box.id)
     @box.views += 1
     @box.save
   end
@@ -64,6 +65,10 @@ class BoxesController < ApplicationController
     end
 
     def user_match
-      @box.user_id == current_user.id
+      if current_user == nil
+        false
+      else
+        @box.user_id == current_user.id
+      end
     end
 end

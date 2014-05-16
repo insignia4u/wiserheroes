@@ -1,0 +1,22 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @link.name
+p
+  strong Url:
+  = @link.url
+p
+  strong Views:
+  = @link.views
+p
+  strong Box:
+  = @box.name
+p
+  strong Owner
+  = @user.name
+
+
+= link_to 'Edit', edit_link_path(@link)
+'|
+= link_to 'Back', links_path
