@@ -6,10 +6,14 @@ class BoxesController < ApplicationController
   end
 
   def show
-    @user = User.find(@box.user_id)
-    @links = Link.where(box_id: @box.id)
-    @box.views += 1
-    @box.save
+    if current_user
+      @user = User.find(@box.user_id)
+      @links = Link.where(box_id: @box.id)
+      @box.views += 1
+      @box.save
+    else
+      redirect_to root_url, notice: 'Please log in'      
+    end
   end
 
   def new

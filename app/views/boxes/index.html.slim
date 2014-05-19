@@ -11,7 +11,7 @@ table
 
   tbody
     - @boxes.each do |box|
-      tr
+      tr.index_table
         td = box.name
         td = box.views
         td = link_to 'Show', box

@@ -19,26 +19,44 @@ feature "Boxes index" do
     context "Creates a new box" do
 
       background do
-      expect(current_path).to eq('/boxes')
-      click_link 'New Box'
-      fill_in 'Name', :with => 'Box test'
-      
-      expect{
-        click_button 'Save'
-      }.to change{ Box.count }.by (1)
+        current_user = User.last
+        box = create(:box, user: current_user)
 
-      expect(page).to have_content('Box was successfully created.')
+        expect(current_path).to eq('/boxes')
+        click_link 'New Box'
+        fill_in 'Name', :with => 'Box test'
+        
+        expect{
+          click_button 'Save'
+        }.to change{ Box.count }.by (1)
+
+        expect(Box.count).to eq(2)
+
+        expect(page).to have_content('Box was successfully created.')
+      end
+
+      scenario "Doesnt create a box without a name" do
+        visit(new_box_path)
+
+        expect{
+          click_button 'Save'
+        }.to_not change{Box.count}.from(2).to(3)
       end
 
       scenario "Shows the box" do
         visit('/boxes')
+        
+        all(:css, '.index_table').last.click_link 'Edit'
+
         click_link 'Show'
 
         expect(page).to have_content('Showing box:')
       end
 
-      scenario "Edits the box" do         
-        click_link 'Edit'
+      scenario "Edits the box" do
+        visit('/boxes')
+
+        all(:css, '.index_table').last.click_link 'Edit'
 
         fill_in 'Name', :with => 'Box edited'
         
@@ -49,10 +67,12 @@ feature "Boxes index" do
 
       scenario "Destroys the box" do
         visit('/boxes')
+        
         expect{
-          click_link 'Destroy'
+          all(:css, '.index_table').last.click_link 'Destroy'
           }.to change{ Box.count }.by (-1)
-
+        
+        expect(Box.count).to eq(1)
         expect(page).to_not have_content('Box edited')
         expect(page).to_not have_content('Box test')
       end
@@ -61,9 +81,32 @@ feature "Boxes index" do
 
   context "Not logged in yet" do
 
-    scenario "Doesnt shows any boxes" do
+    scenario "Doesnt index any boxes" do
       expect(page).to_not have_content('New box')
       expect(Box.count).to eq(0)
+    end
+
+    scenario "Doesnt shows a box" do
+      box = create(:box)
+      visit(box_path(box))
+
+      expect(current_path).to eq('/')
+      expect(page).to have_content('Please log in')
+    end
+
+    scenario "Doesnt allows to create a box" do
+      visit(new_box_path)
+
+      expect(current_path).to eq('/')
+      expect(page).to have_content('Please log in')
+    end
+
+    scenario "Doesnt alows to edit a box" do
+      box = create(:box)
+      visit(edit_box_path(box))
+
+      expect(current_path).to eq('/')
+      expect(page).to have_content('Please log in')
     end
 
   end

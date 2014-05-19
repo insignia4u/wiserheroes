@@ -39,6 +39,7 @@ feature "Links" do
         click_link 'Show'
 
         expect(page).to have_content('MySite')
+        expect(page).to have_content('Test box')
       end
 
       scenario "Edits the link" do         
@@ -51,7 +52,7 @@ feature "Links" do
         expect(page).to have_content('Link edited')
       end
 
-      scenario "Destroys the box" do
+      scenario "Destroys the Link" do
         visit('/links')
 
         expect{
@@ -62,15 +63,61 @@ feature "Links" do
         expect(page).to_not have_content('MySite')
       end
 
+      scenario "Links are destroyed when related box is destroyed" do
+        visit('/links')
+
+        click_link 'New Link'
+        
+        fill_in 'Name',    :with => 'MyLink'
+        fill_in 'Url',     :with => 'MyLink.com'
+        select 'Test box', :from => 'link_box_id'
+
+        expect{
+          click_button 'Save'
+        }.to change{ Link.count }.by (1)
+
+        expect(Link.count).to eq(2)
+
+        visit ('/boxes')
+
+        all(:css, '.index_table').last.click_link 'Destroy'
+
+        expect(Link.count).to eq(0)
+      end
+
     end
   end
 
   context 'Not logged in yet' do
 
-    scenario "Doesnt shows any links" do
-      expect(page).to_not have_content('New link')
+    scenario "Doesnt index any links" do
+      expect(page).to_not have_content('Show Link')
       expect(Link.count).to eq(0)
     end
 
+    scenario "Doesnt shows a link" do
+      link = create(:link)
+
+      visit(link_path(link))
+
+      expect(page).to have_content('Please log in')
+      expect(current_path).to eq('/')
+    end
+
+    scenario "Doesnt allows to edit" do
+      link = create(:link)
+
+      visit(edit_link_path(link))
+
+      expect(page).to have_content('Please log in')
+      expect(current_path).to eq('/')
+    end
+
+    scenario "Doesnt allows to create links" do
+      visit(new_link_path)
+
+      expect(current_path).to eq('/')
+      expect(page).to have_content('Please log in')      
+    end
   end
 end
