@@ -23,7 +23,7 @@ feature "Facebook login" do
     click_link "Sign in with Facebook"
 
     expect(User.count).to eq(0)
-    expect(current_path).to eq('/')
+    expect(current_path).to eq('/boxes')
   end
 
 end

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root to: "home#index"
+  resources :boxes
 
   match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   match 'auth/failure', to: redirect('/'), via: :get

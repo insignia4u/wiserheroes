@@ -10,6 +10,8 @@ class User
   validates_presence_of :name
   validates_uniqueness_of :uid
 
+  has_many :boxes
+
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_create do |user|
       user.provider         = auth.provider
