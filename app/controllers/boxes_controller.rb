@@ -1,41 +1,26 @@
 class BoxesController < ApplicationController
-  before_action :set_box, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :check_ownership!, only: [:edit, :update, :destroy]
 
   def index
-    @boxes = Box.where(user_id: current_user)
+    @boxes = current_user.boxes
   end
 
   def show
-    if current_user
-      @user = User.find(@box.user_id)
-      @links = Link.where(box_id: @box.id)
-      @box.views += 1
-      @box.save
-    else
-      redirect_to root_url, notice: 'Please log in'      
-    end
+      current_box.views += 1
+      current_box.save
   end
 
   def new
-    if current_user
-      @box = Box.new
-    else
-      redirect_to root_url, notice: 'Please log in'
-    end
+    @box = Box.new
   end
 
   def edit
-    if current_user
-    else
-      redirect_to root_url, notice: 'Please log in'
-    end
   end
 
   def create
-    @box = Box.new(box_params)
-    @box.user_id = current_user.id
-
-    if @box.save && user_match
+    @box = current_user.boxes.build(box_params)
+    if @box.save
       redirect_to @box, notice: 'Box was successfully created.'
     else
       render :new
@@ -43,36 +28,35 @@ class BoxesController < ApplicationController
   end
 
   def update
-    if @box.update(box_params) && user_match
+    if current_box.update(box_params)
       redirect_to @box, notice: 'Box was successfully updated.'
     else
-      redirect_to root_url, notice: 'Please log in'
+      render :edit
     end
   end
 
   def destroy
-    if user_match
-      @box.destroy
+      current_box.destroy
       redirect_to boxes_url, notice: 'Box was successfully destroyed.'
-    else
-      redirect_to root_url, notice: 'Please log in'
-    end
   end
 
   private
-    def set_box
-      @box = Box.find(params[:id])
+    def current_box
+      @box ||= current_user.boxes.find(params[:id])
     end
+    helper_method :current_box
 
     def box_params
       params.require(:box).permit(:name)
     end
 
-    def user_match
-      if current_user == nil
-        false
-      else
-        @box.user_id == current_user.id
+    def check_ownership!
+      unless current_box.user == current_user
+        redirect_to root_url, notice: "You're trying to update a box that doesnt belongs to you"
       end
+    end
+
+    def authenticate_user!
+      redirect_to root_url, notice: 'Please log in' unless current_user
     end
 end

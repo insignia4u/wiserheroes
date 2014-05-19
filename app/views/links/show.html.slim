@@ -2,21 +2,21 @@ p#notice = notice
 
 p
   strong Name:
-  = @link.name
+  = current_link.name
 p
   strong Url:
-  = @link.url
+  = current_link.url
 p
   strong Views:
-  = @link.views
+  = current_link.views
 p
   strong Box:
-  = @box.name
+  = current_link.box.name
 p
   strong Owner
-  = @user.name
+  = current_link.user.name
 
 
-= link_to 'Edit', edit_link_path(@link)
+= link_to 'Edit', edit_link_path(current_link)
 '|
 = link_to 'Back', links_path
