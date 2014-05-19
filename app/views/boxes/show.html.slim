@@ -10,7 +10,11 @@ p
 p
   strong Views:
   = @box.views
-
+- @links.each do |link|
+  ul
+    li 
+      = link_to link.name, url_with_protocol(link.url)
+      
 = link_to 'Edit', edit_box_path(@box)
 '|
 = link_to 'Back', boxes_path
