@@ -50,6 +50,7 @@ group :test do
   gem 'simplecov',            require: false
   gem 'launchy'
   gem 'ffaker'
+  gem 'mongoid-rspec'
 end
 
 # Misc

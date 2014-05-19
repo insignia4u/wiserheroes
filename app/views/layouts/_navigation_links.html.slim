@@ -1,0 +1,13 @@
+- if current_user
+  li
+    p.text-primary.navbar-text
+      | Signed in as 
+      b #{current_user.name} 
+    / image_tag(iterator.image.url('#{current_user.image}'), :class => "img_preview")
+  li
+    a href='/signout' Logout
+  li
+    img.pull-left src="#{current_user.image}"
+- else
+  li
+    == link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: 'btn btn-default  navbar-btn'

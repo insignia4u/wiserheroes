@@ -5,3 +5,9 @@
 /tmp
 /coverage
 /config/application.yml
+/bin/
+/specs/helpers
+/specs/controllers
+/specs/views
+/specs/request
+/spec/routing/
