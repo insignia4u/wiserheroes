@@ -4,6 +4,7 @@ class BoxesController < ApplicationController
 
   def index
     @boxes = current_user.boxes
+    render :index
   end
 
   def show

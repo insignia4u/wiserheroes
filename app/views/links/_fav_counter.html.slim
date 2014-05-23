@@ -1,0 +1,7 @@
+h2 Favorites
+ul
+  - current_user.favorited_links.each do |fav|
+    li 
+      = link_to fav.name, url_with_protocol(fav.url)
+h2 Favorites counter for current user
+strong #{current_user.favorites_count}

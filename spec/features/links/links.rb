@@ -95,18 +95,15 @@ feature "Links" do
       expect(Link.count).to eq(0)
     end
 
-    scenario "Doesnt shows a link" do
+    scenario "still shows the link" do
       link = create(:link)
-
       visit(link_path(link))
 
-      expect(page).to have_content('Please log in')
-      expect(current_path).to eq('/')
+      expect(page).to have_content('MySite')
     end
 
     scenario "Doesnt allows to edit" do
       link = create(:link)
-
       visit(edit_link_path(link))
 
       expect(page).to have_content('Please log in')
@@ -114,9 +111,9 @@ feature "Links" do
     end
 
     scenario "Doesnt allows to create links" do
-      visit(new_link_path)
+      visit('/links/new')
 
-      expect(current_path).to eq('/')
+      expect(current_path).to eq  ('/')
       expect(page).to have_content('Please log in')      
     end
   end
