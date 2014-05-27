@@ -1,14 +1,16 @@
 class FavoritesController < ApplicationController
 
-  before_action :authenticate_user!, only: [:create]
+  before_action :authenticate_user!, only: [:create, :destroy]
 
   def create
     if favoriter.add(resource)
       redirect_to @resource, notice: 'Added to favorites'
-    else
-      favoriter.remove(resource)
-      redirect_to @resource, notice: 'Failed to add as favorite'
     end    
+  end
+
+  def destroy
+    favoriter.remove(resource)
+    redirect_to @resource, notice: 'Removed from favorites'
   end
 
 protected

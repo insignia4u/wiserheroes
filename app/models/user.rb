@@ -1,4 +1,4 @@
-class User
+  class User
   include Mongoid::Document
   field :provider, type: String
   field :uid, type: String
@@ -13,7 +13,12 @@ class User
   has_many :boxes
   has_many :links, inverse_of: :user
 
-  has_and_belongs_to_many :favorited_links, class_name: "Link", inverse_of: :user_favorites
+  has_and_belongs_to_many :favorited_links, 
+    inverse_of: :user_favorites,
+    class_name: "Link"
+    
+  scope :most_favorited, -> { order('favorites_count DESC') }
+
 
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_create do |user|
@@ -26,15 +31,8 @@ class User
     end
   end
 
-  def add_fav!
-    update_attributes( :favorites_count => favorites_count + 1)
-  end  
-
-  def remove_fav!
-    if favorites_count > 0
-      update_attributes( :favorites_count => favorites_count - 1)
-    else
-      update_attributes( :favorites_count => 0)
-    end
+  def update_counter_cache
+    total_favorites = favorited_links.inject(0) { |sum, l| sum = sum + l.favorites_count }
+    update_attributes( favorites_count: total_favorites )
   end
 end

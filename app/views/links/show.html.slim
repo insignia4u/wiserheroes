@@ -21,7 +21,7 @@ p
   
 -if current_user
   - unless favoriter.can_favorite(@link)
-    = link_to 'remove from favorites', link_favorite_path(@link), method: :post
+    = link_to 'remove from favorites', link_favorite_path(@link), method: :delete
   - else
     = link_to 'add to my favorites', link_favorite_path(@link), method: :post
 

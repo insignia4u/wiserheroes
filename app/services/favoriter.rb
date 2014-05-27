@@ -1,5 +1,4 @@
 class Favoriter
-    
   def initialize(user)
     @user = user
   end
@@ -9,15 +8,15 @@ class Favoriter
   end
 
   def add(favorited)
-    return false unless can_favorite(favorited)
-
+    return false unless can_favorite(favorited) 
     favorited.user_favorites << @user
-    favorited.add_fav!
+    @user.reload
+    @user.update_counter_cache
   end
 
   def remove(favorited)
-    return false if can_favorite(favorited)
     favorited.user_favorites.delete(@user)
-    favorited.remove_fav!
+    @user.reload
+    @user.update_counter_cache
   end
 end

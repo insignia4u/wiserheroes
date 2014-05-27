@@ -29,4 +29,21 @@ describe Favoriter do
       expect(@favoriter.can_favorite(@link)).to eq(true)
     end
   end
+
+  context 'user favorite counters gets updated when' do
+    it "adds a favorite" do
+      expect{
+        @favoriter.add(@link)
+      }.to change { @user.favorites_count }.by (1)
+    end
+
+    it "removes a favorite" do
+      @favoriter.add(@link)
+      
+      expect{
+        @favoriter.remove(@link)
+      }.to change { @user.favorites_count }.by (-1)
+    end
+
+  end
 end

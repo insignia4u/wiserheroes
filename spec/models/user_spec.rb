@@ -35,22 +35,4 @@ describe User do
     end
 
   end
-
-  describe "Updates the attributes" do  
-    let(:user) { create(:user) }
-
-    it "increases favorite counter" do
-      expect{
-        user.add_fav!
-      }.to change{ user.favorites_count }.by (1)
-    end
-
-    it "decreases favorite counter" do
-      user.add_fav!
-      
-      expect{
-        user.remove_fav!
-      }.to change{ user.favorites_count }.by (-1)        
-    end
-  end
 end

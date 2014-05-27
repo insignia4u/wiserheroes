@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-feature "Boxes index" do
+feature "Boxes" do
 
   background do
-    visit "/boxes"
+    visit "/"
   end
 
   context "Logged in with facebook" do
@@ -80,18 +80,21 @@ feature "Boxes index" do
   end
 
   context "Not logged in yet" do
+    # background do
+    #   visit '/boxes'
+    # end
 
     scenario "Doesnt index any boxes" do
       expect(page).to_not have_content('New box')
       expect(Box.count).to eq(0)
     end
 
-    scenario "Doesnt shows a box" do
+    scenario "It stills shows the box" do
       box = create(:box)
       visit(box_path(box))
 
-      expect(current_path).to eq('/')
-      expect(page).to have_content('Please log in')
+      expect(current_path).to eq(box_path(box))
+      expect(page).to have_content('Test box')
     end
 
     scenario "Doesnt allows to create a box" do

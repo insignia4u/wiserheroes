@@ -8,20 +8,24 @@ class Link
   belongs_to :box
   belongs_to :user, inverse_of: :links
   
-  has_and_belongs_to_many :user_favorites, class_name: "User", inverse_of: :favorited_links
+  has_and_belongs_to_many :user_favorites,
+    class_name:   "User",
+    inverse_of:   :favorited_links,
+    after_add:    :increase_favorite_counter, 
+    after_remove: :decrease_favorite_counter
 
-  def add_fav!
+  scope :most_visited,   -> { order('views DESC') }
+  scope :most_favorited, -> { order('favorites_count DESC') }
+  scope :top_ranked,     -> { limit(5) }
+
+  def increase_favorite_counter(link)!
     update_attributes( :favorites_count => favorites_count + 1 )
   end  
 
-  def remove_fav!
-    if favorites_count > 0
+  def decrease_favorite_counter(link)!
       update_attributes( :favorites_count => favorites_count - 1 )
-    else
-      update_attributes( :favorites_count => 0 )
-    end
   end
-
+  
   def update_views!
     update_attributes(:views => views + 1 )
   end

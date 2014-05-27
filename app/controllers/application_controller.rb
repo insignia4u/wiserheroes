@@ -1,12 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  private
+  expose(:by_user_favorites) { User.most_favorited }
+  expose(:favoriter) { Favoriter.new(current_user) }
+  expose(:by_views) { Link.most_visited.top_ranked }
+  expose(:by_favorites) { Link.most_favorited.top_ranked }
 
-  def favoriter
-    @favoriter ||= Favoriter.new(current_user)
-  end
-  helper_method :favoriter
+  private
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]

@@ -17,15 +17,15 @@ describe Link do
 
     it "Add favorite" do
       expect{
-        link.add_fav!
+        link.increase_favorite_counter(link)
       }.to change{ link.favorites_count }.by (1)
     end
 
     it "Removes favorite" do
-      link.add_fav!
+      link.increase_favorite_counter(link)
       
       expect{
-        link.remove_fav!
+        link.decrease_favorite_counter(link)
       }.to change{ link.favorites_count }.by (-1)        
     end
 

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 feature "Facebook login" do
   background do
@@ -11,7 +11,7 @@ feature "Facebook login" do
 
     expect(User.where(email: auth_data.email)).to exist
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq('/boxes')
 
     expect(page).to have_content auth_data.info.name
     expect(page).to have_content "Signed in as #{User.last.name}"
@@ -23,7 +23,7 @@ feature "Facebook login" do
     click_link "Sign in with Facebook"
 
     expect(User.count).to eq(0)
-    expect(current_path).to eq('/boxes')
+    expect(current_path).to eq('/')
   end
 
 end

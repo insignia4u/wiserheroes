@@ -1,5 +1,5 @@
 class BoxesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :check_ownership!, only: [:edit, :update, :destroy]
 
   def index
@@ -8,8 +8,6 @@ class BoxesController < ApplicationController
   end
 
   def show
-      current_box.views += 1
-      current_box.save
   end
 
   def new
@@ -43,7 +41,7 @@ class BoxesController < ApplicationController
 
   private
     def current_box
-      @box ||= current_user.boxes.find(params[:id])
+      @box ||= Box.find(params[:id])
     end
     helper_method :current_box
 
