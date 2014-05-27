@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  expose(:by_user_favorites) { User.most_favorited }
+  expose(:favoriter) { Favoriter.new(current_user) }
+  expose(:by_views) { Link.most_visited.top_ranked }
+  expose(:by_favorites) { Link.most_favorited.top_ranked }
+
   private
 
   def current_user

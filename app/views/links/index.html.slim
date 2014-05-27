@@ -11,15 +11,26 @@ table
       th
 
   tbody
-    - @links.each do |link|
-      tr
-        td = link.name
-        td = link.url
-        td = link.views
-        td = link_to 'Show', link
-        td = link_to 'Edit', edit_link_path(link)
-        td = link_to 'Destroy', link, data: {:confirm => 'Are you sure?'}, :method => :delete
+    - if current_user
+      - current_user.links.each do |link|
+        tr
+          td = link.name
+          td = link.url
+          td = link.views
+          td = link_to 'Show', link
+          td = link_to 'Edit', edit_link_path(link)
+          td = link_to 'Destroy', link, data: {:confirm => 'Are you sure?'}, :method => :delete
+    - else
+      - @links.each do |link|
+        tr
+          td = link.name
+          td = link.url
+          td = link.views
+          td = link_to 'Show', link
 
 br
 
 = link_to 'New Link', new_link_path
+br
+br
+= render 'fav_counter'

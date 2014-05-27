@@ -1,18 +1,23 @@
 class LinksController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :check_ownership!, only: [:edit, :update, :destroy]
+  before_action :add_a_fav!, only: [:favorite]
+  before_action :remove_a_fav!, only: [:unfavorite]
 
   def index
-    @links = current_user.links
+    if current_user
+      @links = current_user.links 
+    else
+      @links = Link.all
+    end
   end
 
   def show
-      current_link.views += 1
-      current_link.save   
+    viewer.visits(current_link)
   end
 
   def new
-      @link = Link.new
+    @link = Link.new
   end
 
   def edit
@@ -37,18 +42,22 @@ class LinksController < ApplicationController
   end
 
   def destroy
-      current_link.destroy
-      redirect_to links_url, notice: 'Link was successfully destroyed.'
+    current_link.destroy
+    redirect_to links_url, notice: 'Link was successfully destroyed.'
   end
 
   private
     def current_link
-      @link ||= current_user.links.find(params[:id])
+      @link ||= Link.find(params[:id])
     end
     helper_method :current_link
 
     def link_params
       params.require(:link).permit(:name, :url, :views, :box_id)
+    end
+
+    def viewer
+      @viewer = Viewer.new(current_user, cookies)
     end
 
     def check_ownership!

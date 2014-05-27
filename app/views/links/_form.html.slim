@@ -13,6 +13,6 @@
     = f.label :url
     = f.text_field :url
   .field
-    = f.collection_select :box_id, Box.all, :id, :name, :prompt => 'Please select box', class: 'some'
+    = f.collection_select :box_id, current_user.boxes.all, :id, :name, :prompt => 'Please select box', class: 'some'
 
   .actions = f.submit 'Save'

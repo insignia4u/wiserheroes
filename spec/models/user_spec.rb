@@ -3,12 +3,11 @@ require 'spec_helper'
 describe User do
 
   describe "Fields description" do
-    it { should have_fields(:provider, :uid, :name, :image, :oauth_token, :oauth_expires_at) }
+    it { should have_fields(:provider, :uid, :name, :image, :oauth_token, :oauth_expires_at, :favorites_count) }
   end
 
   describe "Validations" do
     it { should validate_presence_of(:name) }
-    it { should validate_uniqueness_of(:uid) }
   end
 
   describe "Omniauth-facebook" do

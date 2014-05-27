@@ -13,10 +13,19 @@ p
   strong Box:
   = current_link.box.name
 p
-  strong Owner
+  strong Owner: 
   = current_link.user.name
+p
+  strong Fav counter:
+  = current_link.favorites_count
+  
+-if current_user
+  - unless favoriter.can_favorite(@link)
+    = link_to 'remove from favorites', link_favorite_path(@link), method: :delete
+  - else
+    = link_to 'add to my favorites', link_favorite_path(@link), method: :post
 
-
+br
 = link_to 'Edit', edit_link_path(current_link)
 '|
 = link_to 'Back', links_path

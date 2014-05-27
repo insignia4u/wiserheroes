@@ -9,7 +9,7 @@ describe Box do
   end
 
   describe "Fields description" do
-    it { should have_fields(:name, :views, :user_id) }
+    it { should have_fields(:name, :user_id) }
   end
 
   describe "Validations" do

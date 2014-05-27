@@ -4,20 +4,20 @@ table
   thead
     tr
       th Name
-      th Views
       th
       th
       th
 
   tbody
-    - @boxes.each do |box|
+    - current_user.boxes.each do |box|
       tr.index_table
         td = box.name
-        td = box.views
         td = link_to 'Show', box
         td = link_to 'Edit', edit_box_path(box)
         td = link_to 'Destroy', box, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
+
+= render :partial => 'links/fav_counter'
 
 = link_to 'New Box', new_box_path
