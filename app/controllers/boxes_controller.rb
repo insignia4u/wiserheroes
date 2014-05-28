@@ -1,5 +1,5 @@
 class BoxesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :check_ownership!, only: [:edit, :update, :destroy]
 
   def index

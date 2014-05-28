@@ -18,7 +18,7 @@ ul
     li
       strong
         = link_to v.name, v
-      | Views: #{v.views}
+      | Views: #{v.views} -- Favorites #{v.favorites_count}
 
 h2 Top links by favorites
 ul
@@ -26,4 +26,4 @@ ul
     li
       strong
         = link_to f.name, f
-      | Favorites: #{f.favorites_count}
+      | Favorites: #{f.favorites_count} -- Views: #{f.views}

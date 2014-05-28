@@ -1,4 +1,26 @@
-h1 Home#index
-p Find me in app/views/home/index.html.slim
-- if current_user
-  = render template: 'boxes/index.html.slim'
+.container-fluid
+  .row
+    .col-sm-12.col-md-12.main
+      ol.breadcrumb
+        li
+          a href='#' Home
+        li
+          Rankings
+      .well.well-sm
+        - if current_user
+          h4 Welcome #{current_user.name}
+          p You currently have #{current_user.boxes.count} boxes and #{current_user.links.count} links! Why dont you create some more?
+          = link_to 'Create a new box', '/boxes/new'
+          |  or 
+          = link_to ' Create a new link', '/links/new'
+        - else
+          h4 Welcome Guest!
+          p Wiser heroes is a very simple 
+            share and save
+            links application.
+            <br>
+            To start using it you just need to click in
+            code.bg-info
+              sign in with facebook
+      == render 'home/rankings'
+

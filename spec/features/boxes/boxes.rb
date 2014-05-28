@@ -3,13 +3,14 @@ require 'spec_helper'
 feature "Boxes" do
 
   background do
-    visit "/"
+    visit '/boxes'
   end
 
   context "Logged in with facebook" do
     
     background do
       sign_in_with_facebook
+      visit '/boxes'
     end
 
     scenario "Shows a list with user boxes" do

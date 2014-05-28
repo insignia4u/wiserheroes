@@ -43,3 +43,83 @@ section {
   @extend .row;
   margin-top: 20px;
   }
+.navbar-brand {
+  float: left;
+  padding: 15px 15px;
+  font-size: 20px;
+  line-height: 20px;
+  height: 50px;
+}
+.btn_fix{
+  width: 80px;
+  padding: 0px;
+}
+
+.td_fix{
+  width: 200px;
+}
+
+.td_fix_half{
+  width: 120px;
+}
+
+.smally{
+  font-size: 10px;
+  color: #474747;
+  padding:0;
+  margin:0;
+}
+
+.small-img{
+  height: 45px;
+  width: 45px;
+  margin-top:5px;
+  padding: 0px;
+}
+
+.breadcrumb{
+  margin-top: 20px;
+}
+
+.box-name{
+  font-size: 18px;
+  font-weight: bold;
+}
+.box-name > a:hover{
+  text-decoration: none;
+}
+.table>tbody>tr>td{
+  vertical-align: middle;
+}
+.table>tbody>tr>td>a{
+  font-size: 18px;
+  font-weight: bold;
+}
+.table>tbody>tr>td>a:hover{
+  text-decoration: none;
+  color:#617992;
+}
+h4>a{
+  color:white;
+  text-decoration: none;
+}
+h4>a:hover{
+  color:white;
+  text-decoration: none;
+}
+.seventy{
+  width: 70%;
+}
+.counter{
+  font-size: 14px;
+}
+.text-white{
+  color: white !important;
+  text-decoration: none;
+}
+.text-white:hover{
+  text-decoration: none;
+}
+.moveme{
+  margin-right: 15px;
+}

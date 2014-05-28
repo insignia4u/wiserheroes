@@ -1,12 +1,17 @@
 - if current_user
   li
-    p.text-primary.navbar-text
-      | Signed in as 
-      b #{current_user.name} 
+    a href='/' Home
   li
-    a href='/signout' Logout
+    a href='/boxes' Boxes
+  li
+    a href='/' Favorites
+  li
+    a href='/links/new' Add a link
   li
     img.pull-left src="#{current_user.image}"
+  li
+    <a href="/signout"><button type="button" class="btn btn-primary btn-xs">Sign out</button></a>
 - else
   li
-    == link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: 'btn btn-default  navbar-btn'
+    button[type="button" class="btn btn-primary btn-xs navbar-btn moveme"]
+      == link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: 'text-white'

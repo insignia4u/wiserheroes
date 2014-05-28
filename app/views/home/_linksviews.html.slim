@@ -1,0 +1,21 @@
+h3.sub-header Top links by views
+table.table.table-hover
+  thead
+    tr
+      th Views/Favorites
+      th Link description
+  tbody
+    - by_views.each do |v|
+      tr
+        td.td_fix
+          .btn-group.btn-group-md
+            button[type='button' class='btn btn-default btn_fix']
+              span.counter #{v.views}
+              br
+              span.smally views
+            button[type='button' class='btn btn-default btn_fix']
+              span.counter #{v.favorites_count}
+              br
+              span.smally favorites
+        td
+          = link_to v.name, v

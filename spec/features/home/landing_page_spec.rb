@@ -4,6 +4,6 @@ feature "Landing Page" do
   scenario "presenting home page" do
     visit "/"
 
-    expect(page).to have_content("Home#index")
+    expect(page).to have_content("Welcome")
   end
 end
