@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "2.1.1p76"
 
 # Rails
 gem 'rails',        '4.1.1'
