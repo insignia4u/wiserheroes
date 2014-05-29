@@ -29,7 +29,7 @@ br
             = link_to box
               span.box-name #{box.name}
           td
-            span.pull-right
+            span.pull-right#options
               = link_to 'Show |', box
               = link_to ' Edit |', edit_box_path(box)
               = link_to ' Destroy', box, data: {:confirm => 'Are you sure?'}, :method => :delete

@@ -3,7 +3,7 @@ require 'spec_helper'
 feature "Links" do
   
   background do
-    visit "/links"
+    visit '/links/'
   end
 
   context 'Logged in with facebook' do
@@ -14,13 +14,13 @@ feature "Links" do
       current_user = User.last
       box = create(:box, user: current_user)
       
-      visit ('/links')
+      visit '/links'
     end
 
     context "Creates a new link" do
 
       background do
-        click_link 'New Link'
+        click_link 'Add a new link'
         
         fill_in 'Name',    :with => 'MySite'
         fill_in 'Url',     :with => 'MySite.com'
@@ -66,7 +66,7 @@ feature "Links" do
       scenario "Links are destroyed when related box is destroyed" do
         visit('/links')
 
-        click_link 'New Link'
+        click_link 'Add a new link'
         
         fill_in 'Name',    :with => 'MyLink'
         fill_in 'Url',     :with => 'MyLink.com'
@@ -80,7 +80,7 @@ feature "Links" do
 
         visit ('/boxes')
 
-        all(:css, '.index_table').last.click_link 'Destroy'
+        all(:css, '#options').last.click_link 'Destroy'
 
         expect(Link.count).to eq(0)
       end
@@ -91,7 +91,8 @@ feature "Links" do
   context 'Not logged in yet' do
 
     scenario "Doesnt index any links" do
-      expect(page).to_not have_content('Show Link')
+      visit('/links')
+      expect(page).to have_content('Please log in')
       expect(Link.count).to eq(0)
     end
 

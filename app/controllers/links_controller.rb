@@ -1,5 +1,5 @@
 class LinksController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :check_ownership!, only: [:edit, :update, :destroy]
   before_action :add_a_fav!, only: [:favorite]
   before_action :remove_a_fav!, only: [:unfavorite]

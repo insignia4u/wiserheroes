@@ -14,7 +14,7 @@ feature "Boxes" do
     end
 
     scenario "Shows a list with user boxes" do
-      expect(page).to have_content("Listing boxes")
+      expect(page).to have_content("My boxes")
     end
 
     context "Creates a new box" do
@@ -24,7 +24,7 @@ feature "Boxes" do
         box = create(:box, user: current_user)
 
         expect(current_path).to eq('/boxes')
-        click_link 'New Box'
+        click_link 'Add a new box'
         fill_in 'Name', :with => 'Box test'
         
         expect{
@@ -47,17 +47,17 @@ feature "Boxes" do
       scenario "Shows the box" do
         visit('/boxes')
         
-        all(:css, '.index_table').last.click_link 'Edit'
+        all(:css, '#options').last.click_link 'Edit'
 
         click_link 'Show'
 
-        expect(page).to have_content('Showing box:')
+        expect(page).to have_content('Links in this box:')
       end
 
       scenario "Edits the box" do
         visit('/boxes')
 
-        all(:css, '.index_table').last.click_link 'Edit'
+        all(:css, '#options').last.click_link 'Edit'
 
         fill_in 'Name', :with => 'Box edited'
         
@@ -70,7 +70,7 @@ feature "Boxes" do
         visit('/boxes')
         
         expect{
-          all(:css, '.index_table').last.click_link 'Destroy'
+          all(:css, '#options').last.click_link 'Destroy'
           }.to change{ Box.count }.by (-1)
         
         expect(Box.count).to eq(1)
