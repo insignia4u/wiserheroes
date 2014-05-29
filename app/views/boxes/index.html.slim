@@ -1,23 +1,35 @@
-h1 Listing boxes
+ol.breadcrumb
+  li
+    a href="/" Home
+  li.active Boxes
 
-table
-  thead
-    tr
-      th Name
-      th
-      th
-      th
-
-  tbody
-    - current_user.boxes.each do |box|
-      tr.index_table
-        td = box.name
-        td = link_to 'Show', box
-        td = link_to 'Edit', edit_box_path(box)
-        td = link_to 'Destroy', box, data: {:confirm => 'Are you sure?'}, :method => :delete
-
+h2.sub-header My boxes
+h4[type="button" class="btn btn-primary"]
+  span.glyphicon.glyphicon-th
+  = link_to " Add a new box", new_box_path
 br
-
-= render :partial => 'links/fav_counter'
-
-= link_to 'New Box', new_box_path
+br
+.table
+  table.table.table-hover
+    thead
+      tr
+        th Link Counter
+        th Box name
+        th
+    tbody
+      - current_user.boxes.each do |box|
+        tr
+          td.td_fix_half
+            .btn-group.btn-group-md
+              button[type="button" class="btn btn-default btn_fix"]
+                span.counter #{box.links.count}
+                br
+                span.smally links
+          td
+            = link_to box
+              span.box-name #{box.name}
+          td
+            span.pull-right
+              = link_to 'Show |', box
+              = link_to ' Edit |', edit_box_path(box)
+              = link_to ' Destroy', box, data: {:confirm => 'Are you sure?'}, :method => :delete

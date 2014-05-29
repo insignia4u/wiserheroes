@@ -12,35 +12,3 @@ ul.nav.nav-tabs
     == render 'home/linksviews'
   .tab-pane#user-fav
     == render 'home/userfavorites'
-
-
-
-/ - if current_user
-/   h2 Your Favorites
-/   ul
-/     - current_user.favorited_links.each do |fav|
-/       li 
-/         = link_to fav.name, url_with_protocol(fav.url)
-
-/ h2 Top user by favorites
-/ ul
-/   - by_user_favorites.each do |user_favorite|
-/     li 
-/       strong #{user_favorite.name}
-/       |  Favs: #{user_favorite.favorites_count }
-
-/ h2 Top links by view
-/ ul
-/   - by_views.each do |v|
-/     li
-/       strong
-/         = link_to v.name, v
-/       | Views: #{v.views} -- Favorites #{v.favorites_count}
-
-/ h2 Top links by favorites
-/ ul
-/   - by_favorites.each do |f|
-/     li
-/       strong
-/         = link_to f.name, f
-/       | Favorites: #{f.favorites_count} -- Views: #{f.views}

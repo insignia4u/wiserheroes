@@ -1,18 +1,25 @@
-p#notice = notice
+ol.breadcrumb
+  li
+    = link_to "Home", root_url
+  li
+    = link_to "Boxes", boxes_path
+  li.active #{current_box.name} 
+
+h2.sub-header #{current_box.name}
+small By: #{current_box.user.name}
 br
-h1 Showing box: #{current_box.name}
-p
-  strong Owner:
-  = current_box.user.name
-p
-  strong Name:
-  = current_box.name
-h3 Links inside:
-- current_box.links.each do |link|
-  ul
-    li 
-      = link_to link.name, url_with_protocol(link.url)
-      
-= link_to 'Edit', edit_box_path(current_box)
+br
+  
+h4 Links in this box: 
+.list-group
+  - current_box.links.each do |link|
+    = link_to link.name, link, {:class=>'list-group-item'}
+
+h4[type="button" class="btn btn-primary"]
+  span.glyphicon.glyphicon-plus 
+  = link_to " Add new links", '/links/new'
+br
+br      
+= link_to 'Edit this box ', edit_box_path(current_box)
 '|
 = link_to 'Back', boxes_path

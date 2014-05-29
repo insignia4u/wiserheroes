@@ -1,0 +1,11 @@
+.modal.fade#favoritesModal[data-toggle="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"]
+  .modal-dialog.modal-sm#favoritesModal
+    .modal-content
+      .modal-header
+        .button[type="button" class="close" data-dismiss="modal" aria-hidden="true"] 
+        h4.modal-title#myModalLabel Favorites
+      .modal-body
+        ul
+          - current_user.favorited_links.each do |fav|
+            li 
+              = link_to fav.name, url_with_protocol(fav.url)

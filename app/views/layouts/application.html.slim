@@ -11,6 +11,8 @@ html
   body
     header
       == render 'layouts/navigation'
+      - if current_user
+        == render 'layouts/modal'
     main[role="main"]
       == render 'layouts/messages'
       == yield

@@ -1,31 +1,45 @@
-p#notice = notice
+ol.breadcrumb
+  li
+    = link_to "Home", root_url
+  li
+    = link_to "Boxes", boxes_path
+  li
+    = link_to current_link.box.name, current_link.box
+  li.active #{current_link.name}
 
-p
-  strong Name:
-  = current_link.name
-p
-  strong Url:
-  = current_link.url
-p
-  strong Views:
-  = current_link.views
-p
-  strong Box:
-  = current_link.box.name
-p
-  strong Owner: 
-  = current_link.user.name
-p
-  strong Fav counter:
-  = current_link.favorites_count
-  
--if current_user
-  - unless favoriter.can_favorite(@link)
-    = link_to 'remove from favorites', link_favorite_path(@link), method: :delete
-  - else
-    = link_to 'add to my favorites', link_favorite_path(@link), method: :post
-
-br
-= link_to 'Edit', edit_link_path(current_link)
-'|
-= link_to 'Back', links_path
+h3.text-center Link information
+ul.list-group.seventy.center-block
+  li.list-group-item
+    strong Name 
+    = current_link.name
+  li.list-group-item
+    strong URL 
+    = current_link.url
+  li.list-group-item
+    strong Views 
+    = current_link.views
+  li.list-group-item
+    strong Shared by 
+    = current_link.user.name
+.row
+  .col-md-12.center-block    
+    - if current_user
+      - unless favoriter.can_favorite(@link)
+        a[href="#{link_favorite_path(@link)}" data-method="delete" type="button" class="btn btn-primary center-block favorite_size"]
+          span.glyphicon.glyphicon-star.pull-left
+          span.badge.pull-right 
+            == current_link.favorites_count
+          span Remove from favorites
+      - else
+        a[href="#{link_favorite_path(@link)}" data-method="post" type="button" class="btn btn-primary center-block favorite_size"]
+          span.glyphicon.glyphicon-star-empty.pull-left
+          span.badge.pull-right 
+            == current_link.favorites_count
+          span Add to favorites!
+    -if current_link.user == current_user
+      a[href="#{edit_link_path(current_link)}" type="button" class="btn btn-primary center-block favorite_size"]
+        span.glyphicon.glyphicon-pencil.pull-left
+        span Edit
+      a[href='#{current_link}' data-confirm="Are you sure?" data-method="delete" rel="nofollow" type="button" class="btn btn-primary center-block favorite_size"]
+        span Delete this link
+        span.glyphicon.glyphicon-trash.pull-left

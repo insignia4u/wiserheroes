@@ -1,36 +1,43 @@
-h1 Listing links
+ol.breadcrumb
+  li
+    a href="/" Home
+  li 
+    a href="#{boxes_path}" 
+      span Boxes
+  li.active Links
 
-table
-  thead
-    tr
-      th Name
-      th Url
-      th Views
-      th
-      th
-      th
 
-  tbody
-    - if current_user
+h2.sub-header My links
+h4[type="button" class="btn btn-primary"]
+  span.glyphicon.glyphicon-plus
+  = link_to '  Add a new link', new_link_path
+br
+br
+.table
+  table.table.table-hover
+    thead
+      tr
+        th &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Views/favorites
+        th Link name
+        th
+    tbody
       - current_user.links.each do |link|
         tr
-          td = link.name
-          td = link.url
-          td = link.views
-          td = link_to 'Show', link
-          td = link_to 'Edit', edit_link_path(link)
-          td = link_to 'Destroy', link, data: {:confirm => 'Are you sure?'}, :method => :delete
-    - else
-      - @links.each do |link|
-        tr
-          td = link.name
-          td = link.url
-          td = link.views
-          td = link_to 'Show', link
-
-br
-
-= link_to 'New Link', new_link_path
-br
-br
-= render 'fav_counter'
+          td.td_fix
+            .btn-group.btn-group-md
+              button[type="button" class="btn btn-default btn_fix"]
+                span.counter #{link.views}
+                br
+                span.smally views
+              button[type="button" class="btn btn-default btn_fix"]
+                span.counter #{link.favorites_count}
+                br
+                span.smally favorites
+          td
+            = link_to link
+              span.box-name #{link.name}
+          td
+            span.pull-right
+              = link_to 'Show |', link
+              = link_to ' Edit |', edit_link_path(link)
+              = link_to ' Destroy', link, data: {:confirm => 'Are you sure?'}, :method => :delete
