@@ -27,6 +27,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'slim-rails'
 gem 'bootstrap-sass'
+gem 'chosen-rails'
 
 # Development Tools
 group :development do
@@ -57,3 +58,4 @@ end
 # Misc
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rails_12factor',   group: :production
+gem "validate_url"

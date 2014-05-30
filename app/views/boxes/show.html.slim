@@ -1,19 +1,31 @@
-ol.breadcrumb
-  li
-    = link_to "Home", root_url
-  li
-    = link_to "Boxes", boxes_path
-  li.active #{current_box.name} 
-
 h2.sub-header #{current_box.name}
 small By: #{current_box.user.name}
 br
 br
   
 h4 Links in this box: 
-.list-group
-  - current_box.links.each do |link|
-    = link_to link.name, link, {:class=>'list-group-item'}
+.table
+  table.table.table-hover
+    thead
+      tr
+        th &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Views/favorites
+        th Link name
+    tbody
+      - current_box.links.each do |link|
+        tr
+          td.td_fix
+            .btn-group.btn-group-md
+              button[type="button" class="btn btn-default btn_fix"]
+                span.counter #{link.views}
+                br
+                span.smally views
+              button[type="button" class="btn btn-default btn_fix"]
+                span.counter #{link.favorites_count}
+                br
+                span.smally favorites
+          td
+            = link_to link
+              span.box-name #{link.name}
 
 h4[type="button" class="btn btn-primary"]
   span.glyphicon.glyphicon-plus 
@@ -23,3 +35,4 @@ br
 = link_to 'Edit this box ', edit_box_path(current_box)
 '|
 = link_to 'Back', boxes_path
+

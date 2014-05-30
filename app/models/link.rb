@@ -13,6 +13,11 @@ class Link
     inverse_of:   :favorited_links,
     after_add:    :increase_favorite_counter, 
     after_remove: :decrease_favorite_counter
+  
+  validates_presence_of :name
+  validates_presence_of :box_id
+  
+  validates_format_of :url, :with => /\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}\Z/i, :on => :create
 
   scope :most_visited,   -> { order('views DESC') }
   scope :most_favorited, -> { order('favorites_count DESC') }

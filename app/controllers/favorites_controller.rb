@@ -5,6 +5,8 @@ class FavoritesController < ApplicationController
   def create
     if favoriter.add(resource)
       redirect_to @resource, notice: 'Added to favorites'
+    else
+      redirect_to @resource, notice: 'Error Added to favorites'
     end    
   end
 

@@ -1,26 +1,21 @@
 .container-fluid
   .row
     .col-sm-12.col-md-12.main
-      ol.breadcrumb
-        li
-          a href='#' Home
-        li
-          Rankings
-      .well.well-sm
-        - if current_user
-          h4 Welcome #{current_user.name}
-          p You currently have #{current_user.boxes.count} boxes and #{current_user.links.count} links! Why dont you create some more?
-          = link_to 'Create a new box', '/boxes/new'
-          |  or 
-          = link_to ' Create a new link', '/links/new'
-        - else
+      br
+      - if current_user
+        .row
+            h4[type="button" class="btn btn-primary"]
+              span.glyphicon.glyphicon-th
+              = link_to " Add a new box", new_box_path
+            span  &nbsp; 
+            h4[type="button" class="btn btn-primary"]
+              span.glyphicon.glyphicon-plus
+              = link_to " Add a new Link", new_link_path
+            p &nbsp; 
+      - else
+        .well.well-sm
           h4 Welcome Guest!
-          p Wiser heroes is a very simple 
-            share and save
-            links application.
-            <br>
-            To start using it you just need to click in
-            code.bg-info
-              sign in with facebook
-      == render 'home/rankings'
-
+          span Wiser heroes is a very simple share and save links application. To start using it you just need to click in 
+          button[type="button" class="btn btn-primary btn-xs navbar-btn moveme"]
+            == link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: 'text-white'
+    == render 'home/rankings'

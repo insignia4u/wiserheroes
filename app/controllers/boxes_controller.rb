@@ -19,6 +19,8 @@ class BoxesController < ApplicationController
 
   def create
     @box = current_user.boxes.build(box_params)
+    @box.slug.downcase!
+    
     if @box.save
       redirect_to @box, notice: 'Box was successfully created.'
     else
@@ -41,12 +43,12 @@ class BoxesController < ApplicationController
 
   private
     def current_box
-      @box ||= Box.find(params[:id])
+      @box ||= Box.find(params[:id].downcase)
     end
     helper_method :current_box
 
     def box_params
-      params.require(:box).permit(:name)
+      params.require(:box).permit(:name, :slug)
     end
 
     def check_ownership!

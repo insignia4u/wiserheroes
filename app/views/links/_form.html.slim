@@ -1,18 +1,33 @@
 = form_for @link do |f|
   - if @link.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@link.errors.count, "error")} prohibited this link from being saved:"
-      ul
-        - @link.errors.full_messages.each do |message|
-          li = message
+      div class="alert alert-danger"
+        button.close[type="button" data-dismiss="alert" aria-hidden="true"] ×
+        h4 = "#{pluralize(@link.errors.count, "error")} prohibited this box from being saved:"
+        ul
+          - @link.errors.full_messages.each do |message|
+            li = message
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :url
-    = f.text_field :url
-  .field
-    = f.collection_select :box_id, current_user.boxes.all, :id, :name, :prompt => 'Please select box', class: 'some'
+  form[role="form" class="form-horizontal seventy center-block"]
+    .seventy.center-block
+      .form-group
+        = f.label :name, {class: "col-sm-1 control-label"}
+        .col-sm-11
+          = f.text_field :name, {class: "form-control"}
+      .form-group
+        = f.label :url, {class: "col-sm-1 control-label"}
+        .col-sm-11
+          = f.text_field :url, {class: 'form-control'}
+      .form-group
+        .col-sm-1
+          strong Box: 
+        .col-sm-11
+          = f.collection_select :box_id, current_user.boxes.all, :id, :name, {prompt: "Select a category"}, {class: "chosen-select"}
+      .form-group
+        .col-sm-12
+          br
+          = f.submit 'Save', {class: "btn btn-lg center-block"}
 
-  .actions = f.submit 'Save'
+
+javascript:
+  $('.chosen-select').chosen({width: "100%"})

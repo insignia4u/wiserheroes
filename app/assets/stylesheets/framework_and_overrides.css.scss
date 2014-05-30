@@ -128,6 +128,22 @@ small{
   padding: 0px !important;
 }
 .favorite_size{
-  width: 300px;
-  margin-top: 2px;
+  width: 220px;
+}
+.link_avatar{
+  display:inline-block;
+  border-radius: 25px;
+  width: 35px;
+  margin-top: -5px;
+  margin-bottom: -6px;
+  margin-right: 5px;
+}
+.list-group-item>.link_url>a{
+  font-size: 22px
+}
+a:hover{
+  text-decoration: none;
+}
+.link_options{
+  height: 56px;
 }

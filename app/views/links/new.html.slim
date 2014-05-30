@@ -1,9 +1,16 @@
-h1 New link
+- flash.each do |name, msg|
+  - if msg.is_a?(String)
+    div class="alert alert-#{name.to_s == 'notice' ? 'success' : 'danger'}"
+      button.close[type="button" data-dismiss="alert" aria-hidden="true"] ×
+      = content_tag :div, msg, :id => "flash_#{name}"
+
+h2.text-center New link
 - if current_user.boxes.count == 0
   span You need to create at least 1 box before start adding links. 
   = link_to 'Create a new box', '/boxes/new'
   br
 - else
   == render 'form'
-
-= link_to 'Back', links_path
+.row
+  .col-md-12
+    = link_to 'Back', links_path

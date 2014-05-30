@@ -1,45 +1,39 @@
-ol.breadcrumb
-  li
-    = link_to "Home", root_url
-  li
-    = link_to "Boxes", boxes_path
-  li
-    = link_to current_link.box.name, current_link.box
-  li.active #{current_link.name}
+.container.seventy
+  h3.pull-left #{current_link.name}
+  h3
+    span.glyphicon.glyphicon-eye-open.pull-right  #{current_link.views}
 
-h3.text-center Link information
 ul.list-group.seventy.center-block
   li.list-group-item
-    strong Name 
-    = current_link.name
+    .link_url
+      = link_to "#{current_link.url}", url_with_protocol(current_link.url)
   li.list-group-item
-    strong URL 
-    = link_to current_link.url, url_with_protocol(current_link.url)
-  li.list-group-item
-    strong Views 
-    = current_link.views
-  li.list-group-item
+    img.link_avatar src="#{current_link.user.image}"
     strong Shared by 
-    = current_link.user.name
-.row
-  .col-md-12.center-block    
-    - if current_user
-      - unless favoriter.can_favorite(@link)
-        a[href="#{link_favorite_path(@link)}" data-method="delete" type="button" class="btn btn-primary center-block favorite_size"]
-          span.glyphicon.glyphicon-star.pull-left
-          span.badge.pull-right 
-            == current_link.favorites_count
-          span Remove from favorites
-      - else
-        a[href="#{link_favorite_path(@link)}" data-method="post" type="button" class="btn btn-primary center-block favorite_size"]
-          span.glyphicon.glyphicon-star-empty.pull-left
-          span.badge.pull-right 
-            == current_link.favorites_count
-          span Add to favorites!
-    -if current_link.user == current_user
-      a[href="#{edit_link_path(current_link)}" type="button" class="btn btn-primary center-block favorite_size"]
-        span.glyphicon.glyphicon-pencil.pull-left
-        span Edit
-      a[href='#{current_link}' data-confirm="Are you sure?" data-method="delete" rel="nofollow" type="button" class="btn btn-primary center-block favorite_size"]
-        span Delete this link
-        span.glyphicon.glyphicon-trash.pull-left
+    = current_link.user.name 
+    strong  inside of 
+    = link_to current_link.box.name, current_link.box  
+  - if current_user
+    li.list-group-item.link_options
+      .pull-left
+        - unless favoriter.can_favorite(@link)
+          a[href="#{link_favorite_path(@link)}" data-method="delete" type="button" class="btn btn-primary favorite_size"]
+            span.glyphicon.glyphicon-star.pull-left
+            span.badge.pull-right 
+              == current_link.favorites_count
+            span Remove from favorites
+        - else
+          a[href="#{link_favorite_path(@link)}" data-method="post" type="button" class="btn btn-primary favorite_size"]
+            span.glyphicon.glyphicon-star-empty.pull-left
+            span.badge.pull-right 
+              == current_link.favorites_count
+            span Add to favorites!
+      - if current_link.user == current_user
+        .pull-right
+          a[href="#{edit_link_path(current_link)}" type="button" class="btn btn-primary "]
+            span.glyphicon.glyphicon-pencil.pull-left
+            span Edit
+          span &nbsp;
+          a[href='#{current_link}' data-confirm="Are you sure?" data-method="delete" rel="nofollow" type="button" class="btn btn-primary "]
+            span Delete this link
+            span.glyphicon.glyphicon-trash.pull-left

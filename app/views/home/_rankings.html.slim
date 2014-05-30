@@ -1,14 +1,7 @@
-ul.nav.nav-tabs
-  li.active
-    a[data-toggle="tab" href='#link-fav']   Top links by favorites
-  li
-    a[data-toggle="tab" href='#link-views'] Top links by views
-  li
-    a[data-toggle="tab" href='#user-fav']   Top user by favorites
-.tab-content
-  .tab-pane.active#link-fav
-    == render 'home/linksfavorites'
-  .tab-pane#link-views
-    == render 'home/linksviews'
-  .tab-pane#user-fav
-    == render 'home/userfavorites'
+.table
+  h3.sub-header Most popular
+  == render 'home/linksviews'
+  h3.sub-header Most favorited
+  == render 'home/linksfavorites'
+  h3.sub-header Popular Users
+  == render 'home/userfavorites'
