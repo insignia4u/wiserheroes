@@ -14,7 +14,7 @@ ul.list-group.seventy.center-block
     = current_link.name
   li.list-group-item
     strong URL 
-    = current_link.url
+    = link_to current_link.url, url_with_protocol(current_link.url)
   li.list-group-item
     strong Views 
     = current_link.views
