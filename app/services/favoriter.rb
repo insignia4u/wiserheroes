@@ -10,13 +10,11 @@ class Favoriter
   def add(favorited)
     return false unless can_favorite(favorited) 
     favorited.user_favorites << @user
-    @user.reload
     @user.update_counter_cache
   end
 
   def remove(favorited)
     favorited.user_favorites.delete(@user)
-    @user.reload
     @user.update_counter_cache
   end
 end

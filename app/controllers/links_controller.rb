@@ -14,6 +14,7 @@ class LinksController < ApplicationController
 
   def show
     viewer.visits(current_link)
+    updates_rank
   end
 
   def new

@@ -1,5 +1,9 @@
 h1 New link
-
-== render 'form'
+- if current_user.boxes.count == 0
+  span You need to create at least 1 box before start adding links. 
+  = link_to 'Create a new box', '/boxes/new'
+  br
+- else
+  == render 'form'
 
 = link_to 'Back', links_path

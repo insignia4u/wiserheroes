@@ -32,7 +32,7 @@
   end
 
   def update_counter_cache
-    total_favorites = favorited_links.inject(0) { |sum, l| sum = sum + l.favorites_count }
+    total_favorites = links.inject(0) { |sum, l| sum = sum + l.favorites_count }
     update_attributes( favorites_count: total_favorites )
   end
 end
